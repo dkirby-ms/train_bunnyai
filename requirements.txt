@@ -1,0 +1,2 @@
+Roboflow
+ultralytics==8.0.196

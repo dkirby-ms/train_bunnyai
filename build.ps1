@@ -21,4 +21,4 @@ docker build . -t $image_name
 docker tag "$image_name`:$tag" "$acr_login_server/$image_name`:$tag"
 docker push "$acr_login_server/$image_name`:$tag"
 
-# docker run -e ROBOFLOW_API_KEY=$key -e ROBOFLOW_WORKSPACE=$workspaceName -e ROBOFLOW_PROJECT=$projectName -e DATA=$datasetVersion -e MODEL_NAME=$modelName -e MODEL_TYPE=$modelType "$acr_login_server/$image_name`:$tag"
+docker run -e ROBOFLOW_API_KEY=$key -e ROBOFLOW_WORKSPACE=$workspaceName -e ROBOFLOW_PROJECT=$projectName -e DATA=$datasetVersion -e MODEL_NAME=$modelName -e MODEL_TYPE=$modelType "$acr_login_server/$image_name`:$tag"

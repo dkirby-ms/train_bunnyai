@@ -22,5 +22,7 @@ ENV ROBOFLOW_PROJECT "your_project_name"
 ENV DATA "data"
 ENV MODEL_TYPE "yolov8"
 ENV MODEL_NAME "yolov8s.pt"
+ENV EPOCHS 100
+ENV IMGSZ 640
 
 ENTRYPOINT [ "bash", "entrypoint.sh" ]

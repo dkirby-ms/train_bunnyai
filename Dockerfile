@@ -16,13 +16,15 @@ RUN apt-get update \
 COPY . .
 
 # Configure keys and model
-ENV ROBOFLOW_API_KEY "your_api_key"
-ENV ROBOFLOW_WORKSPACE "your_workspace"
-ENV ROBOFLOW_PROJECT "your_project_name"
-ENV DATA "data"
-ENV MODEL_TYPE "yolov8"
-ENV MODEL_NAME "yolov8s.pt"
-ENV EPOCHS 100
-ENV IMGSZ 640
+ENV ROBOFLOW_API_KEY=your_api_key \
+    ROBOFLOW_WORKSPACE=your_workspace \
+    ROBOFLOW_PROJECT=your_project_name \
+    DATA=data \
+    MODEL_TYPE=yolov8 \
+    MODEL_NAME=yolov8s.pt \
+    EPOCHS=100 \
+    IMGSZ=640
+
+RUN env
 
 ENTRYPOINT [ "bash", "entrypoint.sh" ]

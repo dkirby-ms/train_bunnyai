@@ -1,3 +1,5 @@
-animals-1/
+animals-*/
 .conda/
 .venv/
+runs/
+

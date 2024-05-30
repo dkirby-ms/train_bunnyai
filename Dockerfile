@@ -7,10 +7,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the Python and opencv dependencies
-RUN apt-get update \
-    && apt-get install -y ffmpeg libsm6 libxext6 \
-    && apt-get clean \
-    && pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code into the container
 COPY . .

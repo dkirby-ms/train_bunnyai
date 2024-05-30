@@ -11,14 +11,15 @@ $key = Get-AzKeyVaultSecret -VaultName $keyVaultName -Name $secretName -AsPlainT
 
 $workspaceName="bunnyai"
 $projectName="animals-7fizt"
-$datasetVersion="animals-2"
-$modelName="yolov8n.pt"
+$datasetVersion="/app/animals-2/data.yaml"
 $image_name = "train_bunnyai"
 $tag = "latest"
 $acr_login_server = "bunnyacr.azurecr.io"
 
+az acr login -n $acr_login_server
 docker build . -t $image_name
 docker tag "$image_name`:$tag" "$acr_login_server/$image_name`:$tag"
 docker push "$acr_login_server/$image_name`:$tag"
 
-docker run -e ROBOFLOW_API_KEY=$key -e ROBOFLOW_WORKSPACE=$workspaceName -e ROBOFLOW_PROJECT=$projectName -e DATA=$datasetVersion "$acr_login_server/$image_name`:$tag"
+docker run -e ROBOFLOW_API_KEY=$key -e ROBOFLOW_WORKSPACE=$workspaceName -e ROBOFLOW_PROJECT=$projectName -e DATA=$datasetVersion -e EPOCHS=1 "$image_name`:$tag"
+docker run -e ROBOFLOW_API_KEY=$key -e ROBOFLOW_WORKSPACE=$workspaceName -e ROBOFLOW_PROJECT=$projectName -e DATA=$datasetVersion -e EPOCHS=1 "$acr_login_server/$image_name`:$tag"

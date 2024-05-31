@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bunnyai-training-run
+  labels:
+    app: bunnyai
+spec:
+  template:
+    metadata:
+      labels:
+        app: bunnyai
+    spec:
+      containers:
+      - name: bunnyai-container
+        image: bunnyacr.azurecr.io/train_bunnyai:latest
+      restartPolicy: OnFailure

@@ -1,6 +1,6 @@
 #!/bin/bash
-python main.py
+# python main.py
 ls
-cat animals-2/data.yaml
+cat data.yaml
 # Run yolo.exe command
 yolo task=detect mode=train model=$MODEL_NAME data=$DATA epochs=$EPOCHS imgsz=$IMGSZ

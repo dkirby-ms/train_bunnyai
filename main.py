@@ -1,7 +1,8 @@
-import os, ultralytics
+import os, ultralytics, torch
 from ultralytics import YOLO
 from roboflow import Roboflow
 
+print('Checking if GPU is available:', torch.cuda.is_available())
 
 ultralytics.checks()
 # Retrieve the bunnyai animals dataset from Roboflow

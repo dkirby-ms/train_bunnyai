@@ -1,7 +1,22 @@
 # Use an official Python runtime as the base image
-FROM ultralytics/ultralytics:latest-python
+FROM ultralytics/ultralytics
+
 # Set the working directory in the container
 WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y unzip
+
+ARG DATASET_URL
+RUN curl -L $DATASET_URL > data.zip \
+    && unzip data.zip \
+    && sed -i 's/\.\.\//\/app\//' data.yaml \
+    && rm data.zip \
+    && apt clean 
+
+# RUN apt-get install -y nvidia-driver-555-open \
+#     && apt-get install -y cuda-drivers-555 \
+
 
 # Copy the requirements file into the container
 COPY requirements.txt .
@@ -13,11 +28,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Configure keys and model
-ENV ROBOFLOW_API_KEY=your_api_key \
-    ROBOFLOW_WORKSPACE=your_workspace \
-    ROBOFLOW_PROJECT=your_project_name \
-    DATA=data \
-    MODEL_TYPE=yolov8 \
+ENV DATA=data.yaml \
     MODEL_NAME=yolov8s.pt \
     EPOCHS=100 \
     IMGSZ=640

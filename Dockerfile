@@ -7,27 +7,20 @@ WORKDIR /app
 RUN apt-get update \
     && apt-get install -y unzip
 
-ARG DATASET_URL
-RUN curl -L $DATASET_URL > data.zip \
+ARG DATASET_URI
+RUN curl -L $DATASET_URI > data.zip \
     && unzip data.zip \
     && sed -i 's/\.\.\//\/app\//' data.yaml \
     && rm data.zip \
     && apt clean 
 
-# RUN apt-get install -y nvidia-driver-555-open \
-#     && apt-get install -y cuda-drivers-555 \
-
-
-# Copy the requirements file into the container
-COPY requirements.txt .
-
-# Install the Python and opencv dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Copy the rest of the application code into the container
-COPY . .
+COPY entrypoint.sh .
 
-# Configure keys and model
+# DATA is the path to the data.yaml file
+# MODEL_NAME is the name of the model file to train
+# EPOCHS is the number of epochs to train the model
+# IMGSZ is the size of the input image
 ENV DATA=data.yaml \
     MODEL_NAME=yolov8s.pt \
     EPOCHS=100 \

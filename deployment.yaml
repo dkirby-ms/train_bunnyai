@@ -13,4 +13,11 @@ spec:
       containers:
       - name: bunnyai-container
         image: bunnyacr.azurecr.io/train_bunnyai:latest
+        resources:
+          limits:
+            cpu: "6"
+            memory: "4Gi"
+          requests:
+            cpu: "3"
+            memory: "3Gi"
       restartPolicy: OnFailure

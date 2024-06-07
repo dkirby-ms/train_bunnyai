@@ -3,3 +3,4 @@ animals-*/
 .venv/
 runs/
 
+yolov8n.pt
